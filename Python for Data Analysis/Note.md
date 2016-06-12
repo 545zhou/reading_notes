@@ -180,7 +180,7 @@ domains in scientific computing.
 
     * merge or other relational operations in popular databases 
 
-2. The most two import classes in pandas
+2. The most two important classes in pandas
 
     * Series: one-dimensional array-like object containing an arrya of data and an associated array of data labels called __index__. 
 
@@ -495,3 +495,55 @@ domains in scientific computing.
     > tweet_fields = ['created_at', 'from_user', 'id', 'text']
     >
     > result = DataFrame(list(cursor), columns=tweet_fields)
+
+## Chapter 7 Data Wrangling: Clean, Transform, Merge, Reshape
+
+1. pd.merge() method: very similar to the join command in SQL
+
+    * merge function arguments
+    |Argument |                            Description                          |
+    |-----------|-------------------------------------------------------------|
+    |left |DataFrame to be merged on the left side|
+    |right |DataFrame to be merged on the right side|
+    |how |One of 'inner', 'outer', 'left' or 'right'. 'inner' by default|
+    |on | Column names to join on. Must be found in both DataFrame objects. If not specified and no other join keys given, will use the intersection of the column names in left and right as the join keys|
+    |left_on | Columns in left DataFrame to use as join keys|
+    |right_on |Analogous to left_on for left DataFrame|
+    |left_index |Use row index in left as its join key (or keys, if a MultiIndex)|
+    |right_index | Analogous to left_index|
+    |sort |Sort merged data lexicographically by join keys; True by default. Disable to get better performance in some cases on large datasets|
+    |suffixes |Tuple of string values to append to column names in case of overlap; defaults to ('_x', '_y'). For example, if 'data' in both DataFrame objects, would appear as 'data_x' and 'data_y' in result|
+    |copy | If False, avoid copying data into resulting data structure in some exceptional cases. By default always copies|
+
+2. instance.join() method: 
+
+    * DataFrame’s join method performs a left join on the join keys.
+
+    * parameters are very similar to merge method
+
+3. concatenating along a axis
+
+    * np.concatenate([array1, array2,..], axis = 1 or 2) is simple concatenating. pd.concat is more complex
+
+    * think about the indexes in DataFrame. It also plays an important role in concatenating. The concatenatin uses indexes to find which entries needed to be lined up.
+
+    * pd.concat() can do a lot of things that pd.merge() can do.
+
+    * concat function arguments
+    |Argument |                            Description                          |
+    |-----------|-------------------------------------------------------------|
+    |objs| List or dict of pandas objects to be concatenated. The only required argument|
+    |axis |Axis to concatenate along; defaults to 0|
+    |join| One of 'inner', 'outer', defaulting to 'outer'; whether to intersection (inner) or union (outer) together indexes along the other axes|
+    |join_axes |Specific indexes to use for the other n-1 axes instead of performing union/intersection logic|
+    |keys| Values to associate with objects being concatenated, forming a hierarchical index along the concatenation axis. Can either be a list or array of arbitrary values, an array of tuples, or a list of arrays (if multiple level arrays passed in levels)|
+    |levels |Specific indexes to use as hierarchical index level or levels if keys passed|
+    |names| Names for created hierarchical levels if keys and / or levels passed|
+    |verify_integrity |Check new axis in concatenated object for duplicates and raise exception if so. By default (False) allows duplicates|
+    |ignore_index |Do not preserve indexes along concatenation axis, instead producing a new range(total_length) index|
+
+4. combining overlapping data
+
+    * use a.combine_first(b) method. If there is overlap, returns the entry in a.
+
+5. 
